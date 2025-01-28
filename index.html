@@ -1,43 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shitty Site</title>
-    <script>
-        var userPassword = "password123"; // BAD: Storing password in plain text
-    </script>
-    <style>
-        body { background-color: yellow; color: red; font-family: 'Comic Sans MS'; }
-        h1 { font-size: 100px; }
-        p { color: blue; }
-    </style>
-</head>
-<body>
-    <h1>Welcome to the Shittiest Site</h1>
-    <p>Hey, you've found the world's worst website. Enjoy your stay!</p>
-    <form method="post" action="submit_form.php">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Submit">
-    </form>
+import React, { useEffect, useState } from 'react';
+import { Terminal } from 'lucide-react';
 
-    <!-- Insecure JavaScript - stealing user input -->
-    <script>
-        document.querySelector("form").addEventListener("submit", function(e) {
-            e.preventDefault();
-            alert("You just submitted your info to a fake site! :D");
-            console.log("Username: " + document.querySelector("input[name='username']").value);
-            console.log("Password: " + document.querySelector("input[name='password']").value); // BAD: Logging passwords
-        });
-    </script>
-    
-    <!-- Insecure iframe -->
-    <iframe src="http://example.com" width="500" height="500"></iframe>
+const OSHumorPage = () => {
+  const [platform, setPlatform] = useState('unknown');
+  const [language, setLanguage] = useState('en');
 
-    <!-- External script (could be malicious) -->
-    <script src="http://evilscript.com/malicious.js"></script>
+  useEffect(() => {
+    // Basic OS detection
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    if (userAgent.includes('linux')) {
+      setPlatform('linux');
+    } else if (userAgent.includes('windows')) {
+      setPlatform('windows');
+    } else if (userAgent.includes('android')) {
+      setPlatform('android');
+    }
+  }, []);
 
-</body>
-</html>
+  const translations = {
+    en: {
+      linuxTitle: "Ah, I see you're a person of culture! 🐧",
+      linuxDescription: "You're already running Linux. Your penguin powers are strong!",
+      windowsTitle: "Oh no... Windows? Really? 😱",
+      windowsDescription: "Your computer is desperately crying out for Linux!",
+      androidTitle: "Android? On a desktop site? 📱",
+      androidDescription: "NO.",
+      unknownTitle: "What OS Magic Is This? 🤔",
+      unknownDescription: "I'm not sure what you're running, but it's probably not Linux, and that's sad.",
+    },
+    fa: {
+      linuxTitle: "آه، می‌بینم که شما فردی با فرهنگ هستید! 🐧",
+      linuxDescription: "شما از لینوکس استفاده می‌کنید. قدرت پنگوئنی شما قوی است!",
+      windowsTitle: "اوه نه... ویندوز؟ واقعاً؟ 😱",
+      windowsDescription: "کامپیوتر شما به شدت به لینوکس نیاز دارد!",
+      androidTitle: "اندروید؟ در یک سایت دسکتاپ؟ 📱",
+      androidDescription: "نه.",
+      unknownTitle: "این چه جادوی سیستمی است؟ 🤔",
+      unknownDescription: "نمی‌دانم چه سیستمی استفاده می‌کنید، اما احتمالاً لینوکس نیست و این غم‌انگیز است.",
+    },
+  };
+
+  const renderContent = () => {
+    const t = translations[language];
+    switch (platform) {
+      case 'linux':
+        return (
+          <div className="text-center p-8">
+            <h1 className="text-4xl font-bold mb-4">{t.linuxTitle}</h1>
+            <p className="text-xl mb-4">{t.linuxDescription}</p>
+            <div className="bg-green-800 p-4 rounded-lg mb-4">
+              <p className="text-sm">Time spent dealing with Windows updates: 0 minutes</p>
+              <p className="text-sm">Time spent feeling superior: ∞</p>
+            </div>
+          </div>
+        );
+      
+      case 'windows':
+        return (
+          <div className="text-center p-8">
+            <h1 className="text-4xl font-bold mb-4">{t.windowsTitle}</h1>
+            <p className="text-xl mb-4">{t.windowsDescription}</p>
+            <div className="bg-red-900 p-4 rounded-lg mb-4">
+              <p className="text-sm">"But my games!" - Every Windows User Ever</p>
+              <p className="text-sm">(Psst... Steam Proton exists now)</p>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+              <a href="https://pop.system76.com/" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Download Pop!_OS (Join the cool kids)
+              </a>
+              <p className="text-sm italic">Side effects may include: terminal addiction, penguin dreams, and sudden urges to customize everything</p>
+            </div>
+          </div>
+        );
+      
+      case 'android':
+        return (
+          <div className="text-center p-8">
+            <h1 className="text-4xl font-bold mb-4">{t.androidTitle}</h1>
+            <p className="text-xl mb-4">{t.androidDescription}</p>
+            <div className="bg-yellow-900 p-4 rounded-lg mb-4">
+              <p className="text-sm">Please return with a proper computer</p>
+              <p className="text-sm">(At least you're using Linux's cousin!)</p>
+            </div>
+          </div>
+        );
+      
+      default:
+        return (
+          <div className="text-center p-8">
+            <h1 className="text-4xl font-bold mb-4">{t.unknownTitle}</h1>
+            <p className="text-xl mb-4">{t.unknownDescription}</p>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-900 text-white">
+      <nav className="bg-gray-800 p-4 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <Terminal size={24} />
+          <span className="font-bold">OS Reality Check</span>
+        </div>
+        <div>
+          <select 
+            value={language} 
+            onChange={(e) => setLanguage(e.target.value)} 
+            className="bg-gray-700 text-white p-2 rounded"
+          >
+            <option value="en">English</option>
+            <option value="fa">فارسی</option>
+          </select>
+        </div>
+      </nav>
+      
+      <main className="container mx-auto px-4 py-8">
+        {renderContent()}
+
+        <footer className="text-center mt-8 text-sm text-gray-400">
+          <p>Made with 💻 by someone who definitely doesn't use Arch (btw)</p>
+          <p className="mt-2">* No Windows computers were harmed in the making of this website</p>
+          <p className="mt-2">** Although they probably crashed anyway</p>
+        </footer>
+      </main>
+    </div>
+  );
+};
+
+export default OSHumorPage;
