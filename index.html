@@ -1,130 +1,175 @@
-import React, { useEffect, useState } from 'react';
-import { Terminal } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Fun Info Rizz 💀</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-const OSHumorPage = () => {
-  const [platform, setPlatform] = useState('unknown');
-  const [language, setLanguage] = useState('en');
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+            transition: transform 0.3s;
+        }
 
-  useEffect(() => {
-    // Basic OS detection
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    if (userAgent.includes('linux')) {
-      setPlatform('linux');
-    } else if (userAgent.includes('windows')) {
-      setPlatform('windows');
-    } else if (userAgent.includes('android')) {
-      setPlatform('android');
-    }
-  }, []);
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
 
-  const translations = {
-    en: {
-      linuxTitle: "Ah, I see you're a person of culture! 🐧",
-      linuxDescription: "You're already running Linux. Your penguin powers are strong!",
-      windowsTitle: "Oh no... Windows? Really? 😱",
-      windowsDescription: "Your computer is desperately crying out for Linux!",
-      androidTitle: "Android? On a desktop site? 📱",
-      androidDescription: "NO.",
-      unknownTitle: "What OS Magic Is This? 🤔",
-      unknownDescription: "I'm not sure what you're running, but it's probably not Linux, and that's sad.",
-    },
-    fa: {
-      linuxTitle: "آه، می‌بینم که شما فردی با فرهنگ هستید! 🐧",
-      linuxDescription: "شما از لینوکس استفاده می‌کنید. قدرت پنگوئنی شما قوی است!",
-      windowsTitle: "اوه نه... ویندوز؟ واقعاً؟ 😱",
-      windowsDescription: "کامپیوتر شما به شدت به لینوکس نیاز دارد!",
-      androidTitle: "اندروید؟ در یک سایت دسکتاپ؟ 📱",
-      androidDescription: "نه.",
-      unknownTitle: "این چه جادوی سیستمی است؟ 🤔",
-      unknownDescription: "نمی‌دانم چه سیستمی استفاده می‌کنید، اما احتمالاً لینوکس نیست و این غم‌انگیز است.",
-    },
-  };
+        button {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
 
-  const renderContent = () => {
-    const t = translations[language];
-    switch (platform) {
-      case 'linux':
-        return (
-          <div className="text-center p-8">
-            <h1 className="text-4xl font-bold mb-4">{t.linuxTitle}</h1>
-            <p className="text-xl mb-4">{t.linuxDescription}</p>
-            <div className="bg-green-800 p-4 rounded-lg mb-4">
-              <p className="text-sm">Time spent dealing with Windows updates: 0 minutes</p>
-              <p className="text-sm">Time spent feeling superior: ∞</p>
-            </div>
-          </div>
-        );
-      
-      case 'windows':
-        return (
-          <div className="text-center p-8">
-            <h1 className="text-4xl font-bold mb-4">{t.windowsTitle}</h1>
-            <p className="text-xl mb-4">{t.windowsDescription}</p>
-            <div className="bg-red-900 p-4 rounded-lg mb-4">
-              <p className="text-sm">"But my games!" - Every Windows User Ever</p>
-              <p className="text-sm">(Psst... Steam Proton exists now)</p>
-            </div>
-            <div className="flex flex-col items-center gap-4">
-              <a href="https://pop.system76.com/" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Download Pop!_OS (Join the cool kids)
-              </a>
-              <p className="text-sm italic">Side effects may include: terminal addiction, penguin dreams, and sudden urges to customize everything</p>
-            </div>
-          </div>
-        );
-      
-      case 'android':
-        return (
-          <div className="text-center p-8">
-            <h1 className="text-4xl font-bold mb-4">{t.androidTitle}</h1>
-            <p className="text-xl mb-4">{t.androidDescription}</p>
-            <div className="bg-yellow-900 p-4 rounded-lg mb-4">
-              <p className="text-sm">Please return with a proper computer</p>
-              <p className="text-sm">(At least you're using Linux's cousin!)</p>
-            </div>
-          </div>
-        );
-      
-      default:
-        return (
-          <div className="text-center p-8">
-            <h1 className="text-4xl font-bold mb-4">{t.unknownTitle}</h1>
-            <p className="text-xl mb-4">{t.unknownDescription}</p>
-          </div>
-        );
-    }
-  };
+        button:hover {
+            background-color: #0056b3;
+        }
 
-  return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <nav className="bg-gray-800 p-4 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Terminal size={24} />
-          <span className="font-bold">OS Reality Check</span>
+        #commentSection {
+            margin-top: 20px;
+            font-size: 18px;
+            font-style: italic;
+            color: #555;
+            display: none;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .emoji {
+            font-size: 1.5em;
+        }
+
+        .fun-facts {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Interactive Fun Info Rizz Web App 💀</h1>
+        <button onclick="generateComment()">Generate Comment on Your Info</button>
+        <div id="commentSection" class="comment">
+            <!-- Comment will appear here -->
         </div>
-        <div>
-          <select 
-            value={language} 
-            onChange={(e) => setLanguage(e.target.value)} 
-            className="bg-gray-700 text-white p-2 rounded"
-          >
-            <option value="en">English</option>
-            <option value="fa">فارسی</option>
-          </select>
-        </div>
-      </nav>
-      
-      <main className="container mx-auto px-4 py-8">
-        {renderContent()}
-
-        <footer className="text-center mt-8 text-sm text-gray-400">
-          <p>Made with 💻 by someone who definitely doesn't use Arch (btw)</p>
-          <p className="mt-2">* No Windows computers were harmed in the making of this website</p>
-          <p className="mt-2">** Although they probably crashed anyway</p>
-        </footer>
-      </main>
+        <div id="funFacts" class="fun-facts"></div>
     </div>
-  );
-};
 
-export default OSHumorPage;
+    <script>
+        // Play sound effect when comment is generated (optional)
+        const soundEffect = new Audio('https://www.soundjay.com/button/beep-07.wav'); // Replace with any sound link
+
+        function generateComment() {
+            // Get browser information
+            const userAgent = navigator.userAgent;
+            const platform = navigator.platform;
+            const browser = getBrowser(userAgent);
+            const os = getOS(platform);
+            const language = navigator.language;
+
+            // Get random emoji for the fun effect
+            const emojis = ['💀', '😂', '🤦‍♂️', '🗿', '🤣', '😎'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+            // Generate a fun comment based on the detected info
+            let comment = `${randomEmoji} Whoa, you're on ${os} using ${browser}... interesting choice! Your language setting is ${language}. 🎉`;
+
+            if (browser === 'Chrome') {
+                comment += " Chrome? I see you're all about that speed, huh? 🏎️";
+            } else if (browser === 'Firefox') {
+                comment += " Firefox, the privacy warrior! You definitely care about your data. 🔐";
+            } else if (browser === 'Safari') {
+                comment += " Safari? Classic Apple vibes! 🤖";
+            } else if (browser === 'Edge') {
+                comment += " Edge? Microsoft trying again! 🤔";
+            }
+
+            // Display comment with animation
+            const commentSection = document.getElementById('commentSection');
+            const funFacts = document.getElementById('funFacts');
+
+            // Random fun fact
+            const funFactsList = [
+                "Did you know that the first computer virus was created in 1986?",
+                "The first website went live on August 6, 1991!",
+                "The term 'bug' in programming comes from an actual insect in a computer!",
+                "The average person spends about 6 hours a day online!"
+            ];
+            const randomFact = funFactsList[Math.floor(Math.random() * funFactsList.length)];
+
+            // Show fun fact
+            funFacts.innerText = `Fun Fact: ${randomFact}`;
+
+            // Display comment with a fade-in effect
+            commentSection.innerText = comment;
+            commentSection.style.display = 'block';
+
+            // Play sound effect for fun
+            soundEffect.play();
+
+            // Add some interactivity on button press (slight transformation animation)
+            const container = document.querySelector('.container');
+            container.style.transform = 'scale(1.05)';
+            setTimeout(() => container.style.transform = 'scale(1)', 300);
+        }
+
+        // Function to determine the browser
+        function getBrowser(userAgent) {
+            if (userAgent.indexOf("Chrome") > -1) {
+                return "Chrome";
+            } else if (userAgent.indexOf("Firefox") > -1) {
+                return "Firefox";
+            } else if (userAgent.indexOf("Safari") > -1) {
+                return "Safari";
+            } else if (userAgent.indexOf("Edge") > -1) {
+                return "Edge";
+            }
+            return "Unknown Browser";
+        }
+
+        // Function to determine the OS
+        function getOS(platform) {
+            if (platform.indexOf("Win") > -1) {
+                return "Windows";
+            } else if (platform.indexOf("Mac") > -1) {
+                return "MacOS";
+            } else if (platform.indexOf("Linux") > -1) {
+                return "Linux";
+            } else if (platform.indexOf("Android") > -1) {
+                return "Android";
+            } else if (platform.indexOf("iPhone") > -1) {
+                return "iOS";
+            }
+            return "Unknown OS";
+        }
+    </script>
+</body>
+</html>
