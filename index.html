@@ -3,172 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Fun Info Rizz 💀</title>
+    <title>Broken Site</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #1a1a1a;
+            color: #f1f1f1;
             margin: 0;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 0;
             text-align: center;
-            width: 350px;
-            transition: transform 0.3s;
         }
 
         h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #007bff;
+            color: #ff6347;
+            font-size: 2.5em;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: #444;
+            color: #fff;
         }
 
         button {
-            padding: 12px 20px;
-            background-color: #007BFF;
+            padding: 10px 20px;
+            background-color: #ff6347;
             color: #fff;
             border: none;
             border-radius: 5px;
+            font-size: 1.1em;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #ff4500;
         }
 
-        #commentSection {
+        p {
+            font-size: 1.2em;
             margin-top: 20px;
-            font-size: 18px;
-            font-style: italic;
-            color: #555;
-            display: none;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
+            color: #ffa500;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .emoji {
-            font-size: 1.5em;
-        }
-
-        .fun-facts {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #777;
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9em;
+            color: #bbb;
         }
     </style>
 </head>
 <body>
+    <h1>Welcome to my totally broken site!</h1>
     <div class="container">
-        <h1>Welcome to the Interactive Fun Info Rizz Web App 💀</h1>
-        <button onclick="generateComment()">Generate Comment on Your Info</button>
-        <div id="commentSection" class="comment">
-            <!-- Comment will appear here -->
-        </div>
-        <div id="funFacts" class="fun-facts"></div>
+        <form action="#" method="GET">
+            <input type="text" name="inputField" placeholder="Enter something fun...">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+    <div class="footer">
+        <p>Oops! Things might break... don't judge me too hard. 😎</p>
     </div>
 
     <script>
-        // Play sound effect when comment is generated (optional)
-        const soundEffect = new Audio('https://www.soundjay.com/button/beep-07.wav'); // Replace with any sound link
-
-        function generateComment() {
-            // Get browser information
-            const userAgent = navigator.userAgent;
-            const platform = navigator.platform;
-            const browser = getBrowser(userAgent);
-            const os = getOS(platform);
-            const language = navigator.language;
-
-            // Get random emoji for the fun effect
-            const emojis = ['💀', '😂', '🤦‍♂️', '🗿', '🤣', '😎'];
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-
-            // Generate a fun comment based on the detected info
-            let comment = `${randomEmoji} Whoa, you're on ${os} using ${browser}... interesting choice! Your language setting is ${language}. 🎉`;
-
-            if (browser === 'Chrome') {
-                comment += " Chrome? I see you're all about that speed, huh? 🏎️";
-            } else if (browser === 'Firefox') {
-                comment += " Firefox, the privacy warrior! You definitely care about your data. 🔐";
-            } else if (browser === 'Safari') {
-                comment += " Safari? Classic Apple vibes! 🤖";
-            } else if (browser === 'Edge') {
-                comment += " Edge? Microsoft trying again! 🤔";
-            }
-
-            // Display comment with animation
-            const commentSection = document.getElementById('commentSection');
-            const funFacts = document.getElementById('funFacts');
-
-            // Random fun fact
-            const funFactsList = [
-                "Did you know that the first computer virus was created in 1986?",
-                "The first website went live on August 6, 1991!",
-                "The term 'bug' in programming comes from an actual insect in a computer!",
-                "The average person spends about 6 hours a day online!"
-            ];
-            const randomFact = funFactsList[Math.floor(Math.random() * funFactsList.length)];
-
-            // Show fun fact
-            funFacts.innerText = `Fun Fact: ${randomFact}`;
-
-            // Display comment with a fade-in effect
-            commentSection.innerText = comment;
-            commentSection.style.display = 'block';
-
-            // Play sound effect for fun
-            soundEffect.play();
-
-            // Add some interactivity on button press (slight transformation animation)
-            const container = document.querySelector('.container');
-            container.style.transform = 'scale(1.05)';
-            setTimeout(() => container.style.transform = 'scale(1)', 300);
-        }
-
-        // Function to determine the browser
-        function getBrowser(userAgent) {
-            if (userAgent.indexOf("Chrome") > -1) {
-                return "Chrome";
-            } else if (userAgent.indexOf("Firefox") > -1) {
-                return "Firefox";
-            } else if (userAgent.indexOf("Safari") > -1) {
-                return "Safari";
-            } else if (userAgent.indexOf("Edge") > -1) {
-                return "Edge";
-            }
-            return "Unknown Browser";
-        }
-
-        // Function to determine the OS
-        function getOS(platform) {
-            if (platform.indexOf("Win") > -1) {
-                return "Windows";
-            } else if (platform.indexOf("Mac") > -1) {
-                return "MacOS";
-            } else if (platform.indexOf("Linux") > -1) {
-                return "Linux";
-            } else if (platform.indexOf("Android") > -1) {
-                return "Android";
-            } else if (platform.indexOf("iPhone") > -1) {
-                return "iOS";
-            }
-            return "Unknown OS";
+        // Sample XSS vulnerability
+        const urlParams = new URLSearchParams(window.location.search);
+        const input = urlParams.get('inputField');
+        if (input) {
+            document.body.innerHTML += `<p class="alert">You entered: ${input}</p>`;
         }
     </script>
 </body>
