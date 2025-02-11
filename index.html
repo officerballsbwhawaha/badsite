@@ -86,10 +86,11 @@
     </div>
 
     <script>
-        // Sample XSS vulnerability
+        // Vulnerable XSS without sanitization
         const urlParams = new URLSearchParams(window.location.search);
         const input = urlParams.get('inputField');
         if (input) {
+            // Reflecting user input directly into HTML without sanitization
             document.body.innerHTML += `<p class="alert">You entered: ${input}</p>`;
         }
     </script>
